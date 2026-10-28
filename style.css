@@ -21,7 +21,8 @@
 }
 
 html {
-    scroll-behavior: smooth
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem
 }
 
 body {
@@ -41,13 +42,19 @@ a {
     color: inherit
 }
 
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--red);
+    outline-offset: 3px
+}
+
 .demo-bar {
     background: #111;
     color: #ffd94d;
     padding: 10px 16px;
     text-align: center;
     font-weight: 700;
-    font-size: .88rem;
+    font-size: .8rem;
     letter-spacing: .02em;
     border-bottom: 4px solid var(--red)
 }
@@ -105,6 +112,10 @@ nav a {
     text-decoration: none
 }
 
+.mobile-actions {
+    display: none
+}
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -115,8 +126,9 @@ nav a {
     text-decoration: none;
     font-weight: 700;
     border-radius: 10px;
+    min-height: 48px;
     padding: 12px 18px;
-    font-size: .95rem
+    font-size: 1rem
 }
 
 .btn-red {
@@ -140,23 +152,24 @@ nav a {
 }
 
 .btn-sm {
+    min-height: 44px;
     padding: 9px 14px;
-    font-size: .88rem
+    font-size: .9rem
 }
 
 .wrap {
     max-width: 1120px;
     margin: 0 auto;
-    padding: 0 18px
+    padding: 0 16px
 }
 
 .hero {
-    padding: 26px 0 10px
+    padding: 20px 0 10px
 }
 
 .hero-grid {
     display: grid;
-    gap: 22px
+    gap: 18px
 }
 
 .pole {
@@ -185,8 +198,9 @@ h1 {
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
     line-height: .95;
-    font-size: clamp(3rem, 11vw, 5.6rem);
-    margin: 14px 0 10px;
+    font-size: clamp(2.75rem, 11vw, 5.6rem);
+    margin: 14px 0 12px;
+    overflow-wrap: anywhere;
     letter-spacing: .01em
 }
 
@@ -196,7 +210,7 @@ h1 em {
 }
 
 .lead {
-    font-size: 1.18rem;
+    font-size: 1.08rem;
     color: var(--muted);
     max-width: 34rem;
     margin: 0
@@ -208,9 +222,9 @@ h1 em {
 
 .hero-cta {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
-    margin-top: 20px
+    margin-top: 18px
 }
 
 .rating {
@@ -242,7 +256,7 @@ h1 em {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    aspect-ratio: 4/3
+    aspect-ratio: 16/10
 }
 
 .hero-img figcaption {
@@ -272,9 +286,10 @@ h1 em {
     background: var(--surface2);
     color: var(--cream);
     border-radius: 14px;
-    padding: 14px 16px;
+    padding: 12px 8px;
     display: grid;
-    gap: 12px
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px
 }
 
 .strip div {
@@ -283,17 +298,80 @@ h1 em {
 
 .strip b {
     font-family: "Oswald", sans-serif;
-    font-size: 1.35rem;
+    font-size: clamp(.85rem, 3.2vw, 1.1rem);
+    line-height: 1.1;
     display: block
 }
 
 .strip span {
-    font-size: .86rem;
+    font-size: clamp(.68rem, 2.5vw, .8rem);
+    line-height: 1.2;
     opacity: .85
 }
 
+.scroll-cue {
+    position: fixed;
+    z-index: 25;
+    bottom: 16px;
+    left: 50%;
+    display: flex;
+    width: fit-content;
+    min-height: 52px;
+    padding: 7px 14px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 253, 246, .96);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: .75rem;
+    font-weight: 700;
+    line-height: 1.1;
+    box-shadow: 0 3px 14px rgba(23, 21, 18, .16);
+    transform: translateX(-50%);
+    animation: scroll-cue-bob 1.8s ease-in-out infinite
+}
+
+.scroll-cue svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+.scroll-cue:hover {
+    color: var(--ink)
+}
+
+.scroll-cue.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+.scroll-cue {
+    transition: opacity .2s ease, visibility .2s ease
+}
+
+@keyframes scroll-cue-bob {
+    0%,
+    100% {
+        transform: translate(-50%, 0)
+    }
+
+    50% {
+        transform: translate(-50%, 5px)
+    }
+}
+
 section {
-    padding: 34px 0
+    padding: 28px 0
 }
 
 h2 {
@@ -312,7 +390,11 @@ h2 em {
 .sub {
     color: var(--muted);
     max-width: 44rem;
-    margin: 0 0 20px
+    margin: 0 0 16px
+}
+
+.walkin-call {
+    margin-top: 16px
 }
 
 .sample-note {
@@ -328,10 +410,11 @@ h2 em {
 
 .cards {
     display: grid;
-    gap: 16px
+    gap: 12px
 }
 
 .card {
+    display: block;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -340,37 +423,43 @@ h2 em {
 
 .card img {
     width: 100%;
-    aspect-ratio: 16/10;
+    height: auto;
+    aspect-ratio: 16/9;
     object-fit: cover
 }
 
 .card-in {
-    padding: 16px
+    min-width: 0;
+    padding: 14px
 }
 
 .card h3 {
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
     margin: 0 0 6px;
-    font-size: 1.2rem
+    font-size: 1.15rem;
+    line-height: 1.15
 }
 
 .card p {
     color: var(--muted);
-    margin: 0 0 12px;
-    font-size: .95rem
+    margin: 0 0 10px;
+    font-size: .95rem;
+    line-height: 1.35
 }
 
 .price-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px
+    gap: 8px;
+    margin-top: 8px
 }
 
 .price {
     font-family: "Oswald", sans-serif;
-    font-size: 1.4rem
+    font-size: 1.25rem;
+    white-space: nowrap
 }
 
 .badge {
@@ -388,7 +477,8 @@ h2 em {
 .time {
     font-size: .85rem;
     color: var(--muted);
-    font-weight: 600
+    font-weight: 600;
+    white-space: nowrap
 }
 
 .steps {
@@ -558,14 +648,14 @@ textarea {
 
 .visit {
     display: grid;
-    gap: 16px
+    gap: 12px
 }
 
 .visit-card {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 18px
+    padding: 16px
 }
 
 .visit-card h3 {
@@ -585,7 +675,7 @@ textarea {
 
 footer {
     border-top: 1px solid var(--line);
-    padding: 22px 0 34px;
+    padding: 22px 0 calc(34px + env(safe-area-inset-bottom));
     color: var(--muted);
     font-size: .9rem
 }
@@ -604,8 +694,45 @@ footer b {
         align-items: center
     }
 
+    .hero {
+        padding-top: 26px
+    }
+
+    .hero-cta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 20px
+    }
+
+    .hero-img img {
+        aspect-ratio: 4/3
+    }
+
     .cards {
         grid-template-columns: repeat(3, 1fr)
+    }
+
+    .card {
+        display: block
+    }
+
+    .card img {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 16/10
+    }
+
+    .card-in {
+        padding: 16px
+    }
+
+    .card h3 {
+        font-size: 1.2rem
+    }
+
+    .card p {
+        margin: 0 0 12px;
+        font-size: .95rem
     }
 
     .steps {
@@ -637,10 +764,144 @@ footer b {
     .visit {
         grid-template-columns: repeat(3, 1fr)
     }
+
+}
+
+@media(max-width:759px) {
+    body {
+        padding-bottom: calc(68px + env(safe-area-inset-bottom))
+    }
+
+    .top-in {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 9px 16px 0
+    }
+
+    .top-in > .btn {
+        min-height: 44px;
+        padding: 8px 11px;
+        font-size: .85rem
+    }
+
+    nav:not(.mobile-actions) {
+        display: flex;
+        order: 3;
+        flex-basis: calc(100% + 32px);
+        gap: 4px;
+        margin: 0 -16px;
+        padding: 0 12px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch
+    }
+
+    nav:not(.mobile-actions)::-webkit-scrollbar {
+        display: none
+    }
+
+    nav:not(.mobile-actions) a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 0 12px;
+        font-size: .9rem
+    }
+
+    .mobile-actions {
+        position: fixed;
+        z-index: 30;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--line);
+        background: rgba(247, 241, 227, .96);
+        backdrop-filter: blur(12px)
+    }
+
+    .scroll-cue {
+        bottom: calc(72px + env(safe-area-inset-bottom))
+    }
+
+    .mobile-actions .btn {
+        width: 100%;
+        min-height: 48px;
+        padding: 10px 12px
+    }
+
+    .hero-cta .btn {
+        width: 100%
+    }
+
+    section[id] {
+        scroll-margin-top: 7.5rem
+    }
+}
+
+@media(max-width:360px) {
+    .demo-bar {
+        padding: 8px 10px;
+        font-size: .72rem
+    }
+
+    .wrap {
+        padding-right: 12px;
+        padding-left: 12px
+    }
+
+    .top-in {
+        padding-right: 12px;
+        padding-left: 12px
+    }
+
+    .top-in > .btn {
+        padding-right: 8px;
+        padding-left: 8px;
+        font-size: .78rem
+    }
+
+    .pole {
+        gap: 7px;
+        padding: 6px 9px;
+        font-size: .72rem;
+        letter-spacing: .04em
+    }
+
+    .strip b {
+        font-size: .78rem
+    }
+
+    .strip span {
+        font-size: .65rem
+    }
+
+    .card {
+        grid-template-columns: minmax(82px, 30%) minmax(0, 1fr)
+    }
+
+    .card-in {
+        padding: 10px
+    }
+
+    .card h3 {
+        font-size: 1rem
+    }
 }
 
 @media(prefers-reduced-motion:reduce) {
     html {
         scroll-behavior: auto
+    }
+
+    .scroll-cue {
+        animation: none;
+        transition: none
     }
 }
